@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .options button:hover {
+            background-color: #f1f1f1;
+        }
+        #result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz App</h1>
+        <div id="quiz">
+            <p class="question" id="question">Question goes here</p>
+            <div class="options" id="options"></div>
+        </div>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is the capital of France?",
+                options: ["Paris", "London", "Berlin", "Madrid"],
+                correct: "Paris"
+            },
+            {
+                question: "Which language runs in a web browser?",
+                options: ["Java", "C", "Python", "JavaScript"],
+                correct: "JavaScript"
+            },
+            {
+                question: "What does CSS stand for?",
+                options: [
+                    "Central Style Sheets",
+                    "Cascading Style Sheets",
+                    "Cascading Simple Sheets",
+                    "Cars SUVs Sailboats"
+                ],
+                correct: "Cascading Style Sheets"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuiz() {
+            const questionEl = document.getElementById("question");
+            const optionsEl = document.getElementById("options");
+            
+            const currentQuiz = quizData[currentQuestion];
+            questionEl.textContent = currentQuiz.question;
+
+            optionsEl.innerHTML = "";
+            currentQuiz.options.forEach(option => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.addEventListener("click", () => checkAnswer(option));
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function checkAnswer(answer) {
+            if (answer === quizData[currentQuestion].correct) {
+                score++;
+            }
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuiz();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("result").textContent = `You scored ${score} out of ${quizData.length}`;
+        }
+
+        loadQuiz();
+    </script>
+</body>
+</html>
+
