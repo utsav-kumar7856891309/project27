@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game with Timer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Memory Game</h1>
+    <p>Time: <span id="timer">0</span> seconds</p>
+    <div class="game-container" id="game-board"></div>
+    <script>
+        const cardsArray = [
+            { name: '🍎', id: 1 }, { name: '🍎', id: 2 },
+            { name: '🍌', id: 3 }, { name: '🍌', id: 4 },
+            { name: '🍇', id: 5 }, { name: '🍇', id: 6 },
+            { name: '🍓', id: 7 }, { name: '🍓', id: 8 },
+        ];
+
+        let firstCard = null;
+        let secondCard = null;
+        let lockBoard = false;
+        let timer = 0;
+        let timerInterval;
+
+        function shuffleCards() {
+            cardsArray.sort(() => Math.random() - 0.5);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timer++;
+                document.getElementById('timer').textContent = timer;
+            }, 1000);
+        }
+
+        function createBoard() {
+            shuffleCards();
+            const gameBoard = document.getElementById('game-board');
+            cardsArray.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+                cardElement.dataset.name = card.name;
+                cardElement.innerHTML = '?';
+                cardElement.addEventListener('click', flipCard);
+                gameBoard.appendChild(cardElement);
+            });
+            startTimer();
+        }
+
+        function flipCard() {
+            if (lockBoard || this === firstCard) return;
+
+            this.textContent = this.dataset.name;
+            
+            if (!firstCard) {
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+            lockBoard = true;
+
+            checkMatch();
+        }
+
+        function checkMatch() {
+            const isMatch = firstCard.dataset.name === secondCard.dataset.name;
+            isMatch ? disableCards() : unflipCards();
+        }
+
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            resetBoard();
+            checkWin();
+        }
+
+        function unflipCards() {
+            setTimeout(() => {
+                firstCard.textContent = '?';
+                secondCard.textContent = '?';
+                resetBoard();
+            }, 1000);
+        }
+
+        function resetBoard() {
+            [firstCard, secondCard, lockBoard] = [null, null, false];
+        }
+
+        function checkWin() {
+            const allMatched = document.querySelectorAll('.card:not([style*="pointer-events: none"])').length === 0;
+            if (allMatched) {
+                clearInterval(timerInterval);
+                alert(`You win! Time taken: ${timer} seconds`);
+            }
+        }
+
+        createBoard();
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 2px solid #333;
+            cursor: pointer;
+        }
+        .card.matched {
+            background-color: #9acd32;
+        }
+    </style>
+</body>
+</html>
