@@ -7,12 +7,12 @@
 </head>
 <body>
     <script>
-       const fruits=["apple","Banana","Cherry"];
-       fruits.push("mango");
-       fruits.pop();
-       fruits.forEach((fruit)=>document.write(fruit));
-       const uppercase=fruits.map((fruit)=>fruit.toUpperCase());
-       document.write(uppercase);
+      let count=0;
+      const interval=setInterval(()=>{
+        count++;
+        document.write("count: ",count);
+        if(count===5)clearInterval(interval);
+      },1000);
     </script>
 </body>
 </html>
