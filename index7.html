@@ -7,12 +7,9 @@
 </head>
 <body>
     <script>
-      let count=0;
-      const interval=setInterval(()=>{
-        count++;
-        document.write("count: ",count);
-        if(count===5)clearInterval(interval);
-      },1000);
+     const scores=[85,42,90,76,58];
+     const passed=scores.filter(score=>score>60);
+     document.write(passed);
     </script>
 </body>
 </html>
