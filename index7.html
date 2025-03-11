@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Generator</title>
 </head>
 <body>
-    <script>
-      const colors= ["red","blue","green"];
-      console.log(colors.includes("blue"));
-      console.log(colors.includes("yellow"));
+  <h1>Password Generator</h1>
+  <button onclick="generatePassword()">Generate Password</button>
+  <p id="password"></p>
 
-    </script>
+  <script>
+    function generatePassword(){
+        const char ="ABCDEFGHIJKLMNOPOQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        let password="";
+        for(let i=0;i<12;i++){
+            password+=char[Math.floor(Math.random()* char.length)];
+        }
+        document.getElementById('password').textContent=password;
+    }
+  </script>
 </body>
 </html>
