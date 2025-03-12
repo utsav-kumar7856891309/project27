@@ -1,24 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Password Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        .output {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        #keyHistory {
+            list-style: none;
+            padding: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #keyHistory li {
+            background: #eaeaea;
+            margin: 5px 0;
+            padding: 0.5rem;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Password Generator</h1>
-  <button onclick="generatePassword()">Generate Password</button>
-  <p id="password"></p>
+    <div class="container">
+        <h1>Keyboard Tracker</h1>
+        <p>Press any key to see the details!</p>
 
-  <script>
-    function generatePassword(){
-        const char ="ABCDEFGHIJKLMNOPOQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        let password="";
-        for(let i=0;i<12;i++){
-            password+=char[Math.floor(Math.random()* char.length)];
-        }
-        document.getElementById('password').textContent=password;
-    }
-  </script>
+        <div class="output">
+            <p><strong>Last Key Pressed:</strong> <span id="keyPressed">None</span></p>
+            <p><strong>Key Code:</strong> <span id="keyCode">-</span></p>
+        </div>
+
+        <h2>Key Press History</h2>
+        <ul id="keyHistory"></ul>
+    </div>
+
+    <script>
+        const keyPressed = document.getElementById('keyPressed');
+        const keyCode = document.getElementById('keyCode');
+        const keyHistory = document.getElementById('keyHistory');
+
+        document.addEventListener('keydown', (event) => {
+            // Show key pressed and its code
+            keyPressed.textContent = event.key === ' ' ? 'Space' : event.key;
+            keyCode.textContent = event.keyCode;
+
+            // Add to history
+            const listItem = document.createElement('li');
+            listItem.textContent = `Key: ${event.key} | Code: ${event.keyCode}`;
+            keyHistory.prepend(listItem);
+
+            // Limit history to 10 items
+            if (keyHistory.children.length > 10) {
+                keyHistory.removeChild(keyHistory.lastChild);
+            }
+        });
+    </script>
 </body>
 </html>
+
