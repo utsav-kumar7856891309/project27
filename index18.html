@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dice roller</title>
+</head>
+<body>
+    <h1>🎲 Dice Roller</h1>
+    <div class="dice" id="dice">🎲</div>
+    <button onclick="rollDice()">Roll Dice</button>
+    <script>
+        function rollDice(){
+            const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+            const radomidx=Math.floor(Math.random()*6);
+            document.getElementById("dice").textContent=diceFaces[radomidx];
+        }
+    </script>
+</body>
+</html>
