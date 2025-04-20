@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>image slider</title>
+    <style>
+        body{
+            text-align: center;
+            font-family: sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+        }
+        button:hover{
+            background-color: #0056b3;
+        }
+        button{
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .slider-container{
+            position: relative;
+            width: 600px;
+            max-width: 90%;
+            overflow: hidden;
+            margin: 0px auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        button{
+            margin-top: 10px;
+
+        }
+        img{
+            width: 100%;
+            display: block;
+            border-radius: 5px;
+            height: auto;
+        }
+      </style>
+</head>
+<body>
+    <h1>images slider</h1>
+    <div class="slider-container">
+        <img id="slider" src="" alt="Image Slider">
+
+    </div>
+    
+  <div class="buttons">
+    <button id="preBtn">Previous</button>
+    <button id="nextBtn">Next</button>
+  </div>
+  <script>
+     const images = [
+      'images.1.jpg',
+      'images2.jpg',
+      'images3.jpg'
+      
+    ];
+    let curridx=0;
+    let slider=document.getElementById("slider");
+    let preBtn=document.getElementById("preBtn");
+    let nextBtn=document.getElementById("nextBtn");
+    function showimages(index){
+        slider.src=images[index];
+    } 
+    preBtn.addEventListener("click",()=>{
+
+        curridx=(curridx-1+images.length)%images.length;
+        showimages(curridx);
+    });
+    nextBtn.addEventListener("click",()=>{
+        curridx=(curridx+1)%images.length;
+        showimages(curridx);
+    });
+    showimages(curridx);
+  </script>
+</body>
+</html>
