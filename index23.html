@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Quote Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .api {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+    #content {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="api">
+    <div class="content" id="content">Click the button to get a random quote!</div>
+    <button onclick="generate()">Generate Quote</button>
+  </div>
+
+  <script>
+    async function generate() {
+      const content = document.getElementById("content");
+      content.innerHTML = "Loading...";
+
+      try {
+        const response = await fetch("https://api.allorigins.win/get?url=" + encodeURIComponent("https://zenquotes.io/api/random"));
+        const result = await response.json();
+        const data = JSON.parse(result.contents);
+        content.innerHTML = `"${data[0].q}" <br><em>- ${data[0].a}</em>`;
+      } catch (error) {
+        content.innerHTML = "Something went wrong. Try again!";
+        console.error("API Error:", error);
+      }
+    }
+  </script>
+</body>
+</html>
+
