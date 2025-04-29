@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery Messages</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    .message {
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="welcomeDiv" class="message"></div>
+  <div id="goodbyeDiv1" class="message"></div>
+  <div id="goodbyeDiv2" class="message"></div>
+  <div id="nodeMessageDiv" class="message"></div>
+  <button id="showNodeMessageBtn">Show Node Message</button>
+
+  <!-- 4. Name display on button click -->
+  <div id="nameDiv" class="message"></div>
+  <button id="showNameBtn">Show My Name</button>
+
+  <script>
+    // 1. Display Welcome message
+    $('#welcomeDiv').text('Welcome to the page!');
+
+    // 2. Display Goodbye message
+    $('#goodbyeDiv1').text('Goodbye! Have a nice day!');
+    $('#goodbyeDiv2').text('See you again!');
+
+    // 3. Display Node message on button click
+    $('#showNodeMessageBtn').click(function () {
+      $('#nodeMessageDiv').text('This is a Node.js message!');
+    });
+
+    // 4. Display name on button click
+    $('#showNameBtn').click(function () {
+      $('#nameDiv').text('My name is John Doe');
+    });
+  </script>
+
+</body>
+</html>
