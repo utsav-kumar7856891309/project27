@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery Image Carousel</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    #carousel {
+      width: 500px;
+      height: 300px;
+      position: relative;
+      overflow: hidden;
+      margin: 20px auto;
+      border: 2px solid #ccc;
+    }
+
+    .carousel-image {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .carousel-image.active {
+      display: block;
+    }
+
+    #controls {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="carousel">
+  <img src="images.1.jpg" class="carousel-image active">
+  <img src="images2.jpg" class="carousel-image">
+  <img src="images3.jpg" class="carousel-image">
+</div>
+
+<div id="controls">
+  <button id="prev">Previous</button>
+  <button id="next">Next</button>
+</div>
+
+<script>
+  $(document).ready(function () {
+    let currentIndex = 0;
+    const images = $('.carousel-image');
+    const totalImages = images.length;
+
+    function showImage(index) {
+      images.removeClass('active').fadeOut();
+      images.eq(index).addClass('active').fadeIn();
+    }
+
+    $('#next').click(function () {
+      currentIndex = (currentIndex + 1) % totalImages;
+      showImage(currentIndex);
+    });
+
+    $('#prev').click(function () {
+      currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+      showImage(currentIndex);
+    });
+  });
+</script>
+
+</body>
+</html>
