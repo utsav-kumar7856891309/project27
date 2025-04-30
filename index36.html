@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Upload from System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    #fileInput {
+      margin-bottom: 10px;
+    }
+    #uploadBtn {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #uploadBtn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Upload a File from Your System</h2>
+
+  <input type="file" id="fileInput" />
+  <br>
+  <button id="uploadBtn">Upload</button>
+
+  <p id="statusMessage"></p>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const statusMessage = document.getElementById("statusMessage");
+
+    uploadBtn.addEventListener("click", () => {
+      const file = fileInput.files[0];
+
+      if (!file) {
+        statusMessage.textContent = "Please select a file first.";
+        statusMessage.style.color = "red";
+        return;
+      }
+      statusMessage.textContent = `Uploading "${file.name}"...`;
+      statusMessage.style.color = "black";
+
+      setTimeout(() => {
+        statusMessage.textContent = `File "${file.name}" uploaded successfully!`;
+        statusMessage.style.color = "green";
+      }, 100);
+    });
+  </script>
+
+</body>
+</html>
+
+
