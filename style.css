@@ -1,26 +1,30 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
   padding: 20px;
-  background: #f4f4f4;
 }
-.title {
-  text-align: center;
-  margin-bottom: 30px;
+
+.accordion {
+  width: 400px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+
+.accordion-header {
+  background-color: #f1f1f1;
+  padding: 15px;
+  margin: 0;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
 }
-.card{
-  background-color: white;
-  padding: 10px ;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+.accordion-content {
+  padding: 15px;
+  display: none;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
 }
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+.accordion-content:last-child {
+  border-bottom: none;
 }
